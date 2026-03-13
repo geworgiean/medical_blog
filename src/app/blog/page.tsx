@@ -49,6 +49,14 @@ async function deletePost(formData: FormData) {
                             <div className="text-sm text-gray-400">
                                 Հրապարակված է՝ {new Date(post.createdAt).toLocaleDateString("hy-AM")}
                             </div>
+
+                            <Link
+                                href={`blog/${post.id}/edit`}
+                                className="text-gray-900 hover:text-gray-50 font-semibold transition flex intems-center p-2"
+                            >
+                                Խմբագրել                  
+                            </Link>
+
                             <form action={deletePost}>
                                 <input 
                                     type="hidden"
