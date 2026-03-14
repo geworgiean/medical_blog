@@ -42,7 +42,7 @@ export default async function DraftsPage() {
                                         {post.title}
                                     </h3>
                                     <p className="text-sm text-slate-5440 mt-1">
-                                        ID: {post.id.substring(0, 8)}...
+                                        ID: {post.id.substring(0, )}
                                     </p>
                                 </div>
                                 <Link

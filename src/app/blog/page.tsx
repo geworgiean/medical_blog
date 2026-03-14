@@ -3,15 +3,20 @@ import { revalidatePath } from "next/cache";
 import Link from "next/link";
 
 
-export default async function BlogPage() {
-    const posts = await db.post.findMany({
-  where: {
-    published: true,
-  },
-  orderBy: {
-    id: 'desc',
-  },
-});
+export default async function BlogPage(props: { searchParams: Promise<{ q?: string }> }) {
+  const searchParams = await props.searchParams;
+  const query = searchParams.q || "";
+
+  const posts = await db.post.findMany({
+    where: {
+      published: true,
+      OR: [
+        { title: { contains: query } },
+        { content: { contains: query } },
+      ],
+    },
+    orderBy: { id: 'desc' },
+  });
 
 async function deletePost(formData: FormData) {
     "use server";
@@ -27,26 +32,48 @@ async function deletePost(formData: FormData) {
   }
 
     return (
-        <main className="max-w-4xl mx-auto p-10 ">
-            <div className="flex gap-2">
-                
-            </div>
-            
-            <div className="flex justify-between items-center mb-10 ">
-                <h1 className="text-4xl font-extrabold text-blue-900">Բժշկական Բլոգ</h1>
-                <Link
-                    href="/blog/drafts"
-                    className="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-xl transition-all"
-                >
-                    Սևագրեր
-                </Link>
+        <main className="w-4xl mx-auto p-1 pt-10">
+                <div className="flex flex-col items-center gap-6 mb-1">
+                <h1 className="text-5xl font-black text-blue-900 tracking-tight">                    
+                    Բժշկական Բլոգ
+                </h1>
+                <div className="flex items-center gap-5">
                 <Link 
                     href="/blog/new"
                     className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition font-medium"
                 >
                 + Նոր Հոդված
                 </Link>
-                
+                <Link
+                    href="/blog/drafts"
+                    className="bg-slate-200 hover:bg-slate-300 text-slate-00 font-bold py-2 px-5 rounded-3xl transition-all"
+                >
+                    Սևագրեր
+                </Link>
+                </div>
+                <div className="flex justify-center mb-12">
+                    <form 
+                        action="/blog" 
+                        method="GET" 
+                        className="relative w-3xl group"
+                    >
+                        <input 
+                            type="text"
+                            name="q"
+                            placeholder="Փնտրել հեդված․․․"
+                            defaultValue={query}
+                            className="w-3xl px-7 py-3 pl-14 bg-white border border-slate-200 rounded-full shadow-sm hover:shadow-md focus:border-slate-300 outline-none transition-all text-lg"
+                        />
+                        <div className="absolute left-6 top-6.5 -translate-y-1/2 opacity-40 text-xl">
+                            🔍︎
+                        </div>
+                            {query && (
+                        <p className="mt-3 text-sm text-slate-500">
+                            Արդյունքներ «<span className="font-bold text-slate-800">{query}</span>» հարցման համար
+                        </p>
+                        )}
+                    </form>
+                </div>
             </div>
 
             <div className="grid gap-6">

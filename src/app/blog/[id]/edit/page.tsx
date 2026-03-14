@@ -35,8 +35,9 @@ export default async function EditPostPage(props: { params: Promise<{ id: string
     return (
         <div className="min-h-screen bg-slate-50 py-12 px-4">
             <div className="max-w-xl mx-auto">
-                <div className="bg-white rounded-3xl shadow-xl overfolw-hidden border-slate-100">
-                    <div className="bg-green-600 p-8 text-white text-center">                        <h1 className="text-3xl font-extrabold tracking-tight text-white">Խմբագրել Հոդվածը</h1>
+                <div className="bg-white rounded-3xl shadow-xl overflow-hidden border-slate-100">
+                    <div className="bg-green-600 p-8 text-white text-center">                        
+                        <h1 className="text-3xl font-extrabold tracking-tight text-white">Խմբագրել Հոդվածը</h1>
                         <p className="mt-2 text-amber-50 opacity-90 text-sm">Փոփոխեք հոդվածի տվյալները և պահպանեք</p>
                     </div>
 
@@ -82,13 +83,13 @@ export default async function EditPostPage(props: { params: Promise<{ id: string
                         <div className="pt-6 flex flex-col gap-3">
                             <button
                                 type="submit"
-                                className="w-full bg-green-600 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-black-200 transition-all active:scale-[0.98]"
+                                className="w-full bg-green-600 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all active:scale-[0.98] cursor-pointer"
                             >
                                 Պահպանել Փոփոխությունները
                             </button>
 
                             <Link 
-                                href="/blog/"
+                                href="/blog/drafts"
                                 className="items-center px-8 py-3  font-bold rounded-xl transition-all  mx-auto" >
                                 Չեղարկել
                             </Link>

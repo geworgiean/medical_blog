@@ -10,17 +10,21 @@ export default function NewPostPage() {
 
     const title = formData.get("title") as string;
     const content = formData.get("content") as string;
+    const isPublished = formData.get("published") === "on";
 
     await db.post.create({
       data: {
         title: title,
         content: content,
-        published: true,
+        published: isPublished,
       },
     });
 
-    revalidatePath("/blog");
-    redirect("/blog");
+    if (isPublished) {
+      redirect("/blog");
+    } else {
+      redirect("/blog/drafts");
+    }
   }
 
   return (
@@ -50,7 +54,20 @@ export default function NewPostPage() {
               required 
             />
           </div>
-
+          <div className="flex items-center gap-3 mb-6 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+            <input 
+              type="checkbox"
+              id="published"
+              name="published"
+              className="w-5 h-5 accent-blue-600 cursor-pointer"
+            />
+            <label
+              htmlFor="published"
+              className="text-slate-700 font-medium cursor-pointer select-none" 
+            >
+              Հրապարակել անմիջապես
+            </label>
+          </div>
           <button 
             type="submit" 
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-200 transition-all active:scale-95"
