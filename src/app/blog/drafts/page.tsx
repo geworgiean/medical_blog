@@ -34,7 +34,7 @@ export default async function DraftsPage() {
                     </div>
                 ) : (
                     <div className="grid gap-4">
-                        {drafts.map((post) => (
+                        {drafts.map((post: any) => (
                             <div
                                 key={post.id}
                                 className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center group hover:shadow-md transition-all"
