@@ -19,15 +19,18 @@ export default async function EditPostPage(props: { params: Promise<{ id: string
     "use server";
     const title = formData.get("title") as string;
     const content = formData.get("content") as string;
+    const published = formData.get("published") === "on";
 
     await db.post.update({
       where: { id: id } as any, 
-      data: { title, content },
+      data: { title, content, published },
     });
 
     revalidatePath("/blog");
     redirect("/blog");
   }
+
+  
 
     return (
         <div className="min-h-screen bg-slate-50 py-12 px-4">
@@ -58,6 +61,22 @@ export default async function EditPostPage(props: { params: Promise<{ id: string
                                 className="w-full px-4 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-amber-100 focus:border-amber-500 outline-none transition-all min-h-50"
                                 required
                             />
+                        </div>
+
+                        <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-2xl font-medium border border-slate-100">
+                            <input 
+                                type="checkbox"
+                                name="published"
+                                id="published"
+                                defaultChecked={post.published}
+                                className="w-6 h-6 accent-green-600 cursor-pointer"
+                            />
+                            <label 
+                                htmlFor="published"
+                                className="text-sm font-bold text-slate-700 cursor-pointer select-none"
+                            >
+                                Հրապարակել հոդվածը
+                            </label>
                         </div>
 
                         <div className="pt-6 flex flex-col gap-3">

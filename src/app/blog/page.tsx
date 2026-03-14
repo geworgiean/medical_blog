@@ -5,10 +5,13 @@ import Link from "next/link";
 
 export default async function BlogPage() {
     const posts = await db.post.findMany({
-        orderBy: {
-            createdAt: "desc",
-        },
-    });
+  where: {
+    published: true,
+  },
+  orderBy: {
+    id: 'desc',
+  },
+});
 
 async function deletePost(formData: FormData) {
     "use server";
@@ -25,14 +28,25 @@ async function deletePost(formData: FormData) {
 
     return (
         <main className="max-w-4xl mx-auto p-10 ">
+            <div className="flex gap-2">
+                
+            </div>
+            
             <div className="flex justify-between items-center mb-10 ">
                 <h1 className="text-4xl font-extrabold text-blue-900">Բժշկական Բլոգ</h1>
+                <Link
+                    href="/blog/drafts"
+                    className="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-xl transition-all"
+                >
+                    Սևագրեր
+                </Link>
                 <Link 
                     href="/blog/new"
                     className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition font-medium"
                 >
                 + Նոր Հոդված
                 </Link>
+                
             </div>
 
             <div className="grid gap-6">
@@ -52,7 +66,7 @@ async function deletePost(formData: FormData) {
 
                             <Link
                                 href={`blog/${post.id}/edit`}
-                                className="text-gray-900 hover:text-gray-50 font-semibold transition flex intems-center p-2"
+                                className="text-gray-900 hover:text-blue-700 font-semibold transition flex intems-center p-2"
                             >
                                 Խմբագրել                  
                             </Link>
