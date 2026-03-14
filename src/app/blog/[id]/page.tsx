@@ -67,7 +67,7 @@ export default async function PostPage(props: { params: Promise<{ id: string }> 
                 </form>
 
                 <div className="space-y-4">
-                    {post.comments.map((comment) => (
+                    {(post as any).comments?.map((comment: any) => (
                         <div 
                             key={comment.id}
                             className="p-4 bg-slate-50 rounded-2xl border border-slate-100"
