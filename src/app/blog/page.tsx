@@ -18,7 +18,7 @@ export default async function BlogPage(props: { searchParams: Promise<{ q?: stri
     orderBy: { id: 'desc' },
   });
 
-async function deletePost(formData: FormData) {
+    async function deletePost(formData: FormData) {
     "use server";
     const id = formData.get("id") as string;
     
@@ -85,8 +85,10 @@ async function deletePost(formData: FormData) {
                             key={post.id}
                             className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition"
                         >
-                            <h2 className="text-2xl font-bold text-gray-800 mb-2">{post.title}</h2>
-                            <p className="text-gray-600 line-clamp-3 mb-4">{post.content}</p>
+                            <Link href={`/blog/${post.id}`} className="text-2xl font-bold hover:underline">
+                                {post.title}
+                            </Link>                            
+                            <p className="text-gray-600 line-clamp-3 mb-4">{post.content.substring(0, 100)}...</p>
                             <div className="text-sm text-gray-400">
                                 Հրապարակված է՝ {new Date(post.createdAt).toLocaleDateString("hy-AM")}
                             </div>

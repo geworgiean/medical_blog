@@ -19,4 +19,15 @@ model Post {
   category  String  @default("Ընդհանուր")
   published Boolean  @default(false)
   createdAt DateTime @default(now())
+  comments  Comment[]
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  author    String   @default("Անանուն")
+  createdAt DateTime @default(now())
+
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
