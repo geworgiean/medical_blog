@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
+import DeleteButton from "@/components/DeleteButton";
 
 
 export default async function BlogPage(props: { searchParams: Promise<{ q?: string }> }) {
@@ -29,6 +30,15 @@ export default async function BlogPage(props: { searchParams: Promise<{ q?: stri
     });
     
     revalidatePath("/blog");
+
+    async function deletePost(formData: FormData) {
+    "use server";
+    const id = formData.get("id") as string;
+    await db.post.delete({
+        where: { id: id },
+    });
+    revalidatePath("/blog");
+    }
   }
 
     return (
@@ -100,15 +110,13 @@ export default async function BlogPage(props: { searchParams: Promise<{ q?: stri
                                 Խմբագրել                  
                             </Link>
 
-                            <form action={deletePost}>
+                            <form>
                                 <input 
                                     type="hidden"
                                     name="id"
                                     value={post.id}
                                 />
-                                <button className="text-red-500 hover:bg-red-50 p-2 rounded-lg transition font-medium">
-                                    Ջնջել
-                                </button>
+                                <DeleteButton id={post.id} />
                             </form>
                         </article>
                     ))

@@ -1,5 +1,7 @@
 import { db } from "@/lib/db";
 import Link from "next/link";
+import DeleteButton from "@/components/DeleteButton";
+
 
 export default async function DraftsPage() {
     const drafts = await db.post.findMany({
@@ -45,12 +47,16 @@ export default async function DraftsPage() {
                                         ID: {post.id.substring(0, )}
                                     </p>
                                 </div>
+                                <div>
                                 <Link
                                     href={`/blog/${post.id}/edit`}
-                                    className="bg-slate-100 hover:bg-green-600 hover:text-white text-slate-600 px-4 py-2 rounded-xl text-sm font-bold transition-all"
+                                    className="bg-slate-100 hover:bg-green-600 hover:text-white text-slate-600 px-3 py-1 rounded-xl text-sm font-bold transition-all"
                                 >
                                     Խմբագրել
                                 </Link>
+                                
+                                <DeleteButton id={post.id} />
+                                </div>
                             </div>
                         ))}
                     </div>
