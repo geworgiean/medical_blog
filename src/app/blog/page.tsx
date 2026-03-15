@@ -90,7 +90,7 @@ export default async function BlogPage(props: { searchParams: Promise<{ q?: stri
                 {posts.length === 0 ? (
                     <p className="text-gray-500 text-center text-xl">Դեռևս հոդվածներ չկան:</p>
                 ) : (
-                    posts.map((post) => (
+                    posts.map((post: any) => (
                         <article
                             key={post.id}
                             className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition"
