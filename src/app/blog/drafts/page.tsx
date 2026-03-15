@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import Link from "next/link";
 import DeleteButton from "@/components/DeleteButton";
 
+export const revalidate = 0;
 
 export default async function DraftsPage() {
     const drafts = await db.post.findMany({

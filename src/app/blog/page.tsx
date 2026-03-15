@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import DeleteButton from "@/components/DeleteButton";
 
+export const revalidate = 0;
 
 export default async function BlogPage(props: { searchParams: Promise<{ q?: string }> }) {
   const searchParams = await props.searchParams;
