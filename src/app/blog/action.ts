@@ -3,15 +3,16 @@ import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
 export async function deletePostAction(id: string) {
-  if (!id) return;
-
   try {
     await db.post.delete({
-      where: { id: id },
+      where: { id },
     });
+    revalidatePath("/blog");
+    revalidatePath("/blog/drafts");
+    
+    return { success: true };
   } catch (error) {
-    console.error("Database error:", error);
+    console.error("Ջնջման սխալ:", error);
+    return { success: false };
   }
-
-  revalidatePath("/blog");
 }

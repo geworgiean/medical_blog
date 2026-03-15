@@ -2,6 +2,8 @@ import { db } from "@/lib/db";
 import Link from "next/link";
 import DeleteButton from "@/components/DeleteButton";
 
+
+export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export default async function DraftsPage() {
