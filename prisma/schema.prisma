@@ -9,8 +9,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL") // սա Vercel-ը ավտոմատ կտա
+  directUrl = env("POSTGRES_URL_NON_POOLING") // սա էլ
 }
 
 model Post {

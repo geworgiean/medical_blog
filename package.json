@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "prisma generate && prisma db push && next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
+  "dev": "next dev",
+  "build": "prisma generate && prisma db push && next build",
+  "start": "next start",
+  "lint": "eslint"
+},
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "^7.4.2",
     "@prisma/client": "^7.4.2",
